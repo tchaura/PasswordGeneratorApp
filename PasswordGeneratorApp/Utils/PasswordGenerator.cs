@@ -11,5 +11,24 @@ public class PasswordGenerator(PasswordOptions options)
         includeSpecial: options.IncludeSymbols,
         passwordLength: options.Length);
 
-    public string GetPassword() => _pwdGenerator.Next();
+    public string GetPassword()
+    {
+        string password;
+        
+        try
+        {
+            password = _pwdGenerator.Next();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            throw new ArgumentException("Password options are invalid");
+        }
+
+        if (password.Contains("Password length invalid"))
+        {
+            throw new ArgumentOutOfRangeException(password);
+        }
+
+        return password;
+    }
 }

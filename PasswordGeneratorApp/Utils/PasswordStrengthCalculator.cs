@@ -1,10 +1,9 @@
 namespace PasswordGeneratorApp.Utils;
 
-using Zxcvbn;
 
 public class PasswordStrengthCalculator(string password)
 {
-    private readonly Result _strengthScore = Core.EvaluatePassword(password);
+    private readonly Zxcvbn.Result _strengthScore = Zxcvbn.Core.EvaluatePassword(password);
 
     private static readonly Dictionary<int, string> StrengthStrings = new()
     {
